@@ -28,6 +28,35 @@ class DisjointSetQuickFindImpl {
     }
 }
 
+class DisjointSetQuickUnionImpl {
+    constructor(size) {
+        this.root = new Array(size).fill(0);
+        this.root.forEach((_, index) => {
+            this.root[index] = index
+         })
+    }
+
+    find(node) {
+        while(this.root[node] !== node) {
+            node = this.root[node]
+        }
+        return node;
+    }
+
+    union(x, y) {
+        const rootX = this.find(x);
+        const rootY = this.find(y);
+
+        if (rootX !== rootY) {
+            this.root[rootY] = rootX;
+        }
+    }
+
+    isConnected(x, y) {
+        return this.find(x) === this.find(y)
+    }
+}
+
 const unionFind = new DisjointSetQuickFindImpl(10);
  // 1-2-5-6-7 3-8-9 4
 unionFind.union(1, 2);
